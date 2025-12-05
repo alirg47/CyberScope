@@ -50,7 +50,7 @@ export default function Header() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{ textAlign: 'right' }}>
                         <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                            {user?.name}
+                            {user?.fullName}
                         </div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                             {user?.email}
@@ -69,7 +69,7 @@ export default function Header() {
                         color: '#fff',
                         border: '2px solid rgba(255,255,255,0.1)'
                     }}>
-                        {user?.name.charAt(0)}
+                        {user?.fullName.charAt(0)}
                     </div>
                 </div>
             </div>

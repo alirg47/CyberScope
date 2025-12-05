@@ -5,12 +5,14 @@ export interface CampaignTrendData {
     timestamp: number;
     detections: number;
     campaigns: string[];
+    [key: string]: any;
 }
 
 export interface IOCMatchData {
     type: string;
     count: number;
     color: string;
+    [key: string]: any;
 }
 
 export interface MITRETacticData {
@@ -18,6 +20,7 @@ export interface MITRETacticData {
     techniques: string[];
     detections: number;
     intensity: number; // 0-100 for heatmap color
+    [key: string]: any;
 }
 
 export interface PatternNode {

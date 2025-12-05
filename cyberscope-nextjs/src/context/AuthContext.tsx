@@ -25,17 +25,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // L1 Analyst can access L1 dashboard
         if (path.startsWith('/l1')) {
-            return currentUser.role === 'SOC L1' || currentUser.role === 'SOC Lead';
+            return currentUser.role === 'SOC L1';
         }
 
         // L2 Analyst can access L2 dashboard
         if (path.startsWith('/l2')) {
-            return currentUser.role === 'SOC L2' || currentUser.role === 'SOC Lead';
+            return currentUser.role === 'SOC L2';
         }
 
         // L3 Analyst can access L3 dashboard
         if (path.startsWith('/l3')) {
-            return currentUser.role === 'SOC L3' || currentUser.role === 'SOC Lead';
+            return currentUser.role === 'SOC L3';
         }
 
         // Common pages (alerts, incidents, settings, user-profile) accessible by all

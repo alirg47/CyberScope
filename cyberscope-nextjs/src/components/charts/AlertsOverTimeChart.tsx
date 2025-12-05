@@ -5,14 +5,17 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import ChartContainer from './ChartContainer';
 import TimeRangeFilter from '../TimeRangeFilter';
 import { generateAlertsOverTime, TimeRange } from '@/utils/dataGenerators';
+import { AlertTimeData } from '@/data/l1ChartData';
 
 interface AlertsOverTimeChartProps {
+  data?: AlertTimeData[];
+  view?: 'hourly' | 'daily' | 'weekly' | 'monthly';
   showTimeFilter?: boolean;
 }
 
-export default function AlertsOverTimeChart({ showTimeFilter = true }: AlertsOverTimeChartProps) {
+export default function AlertsOverTimeChart({ data, view, showTimeFilter = true }: AlertsOverTimeChartProps) {
   const [timeRange, setTimeRange] = useState<TimeRange>('24h');
-  const chartData = generateAlertsOverTime(timeRange);
+  const chartData = data || generateAlertsOverTime(timeRange);
 
   return (
     <ChartContainer
@@ -36,7 +39,7 @@ export default function AlertsOverTimeChart({ showTimeFilter = true }: AlertsOve
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
           <XAxis
-            dataKey="label"
+            dataKey="time"
             stroke="#666"
             style={{ fontSize: '0.75rem' }}
             tick={{ fill: '#999' }}
@@ -58,7 +61,7 @@ export default function AlertsOverTimeChart({ showTimeFilter = true }: AlertsOve
           />
           <Area
             type="monotone"
-            dataKey="value"
+            dataKey="alerts"
             stroke="#00f3ff"
             strokeWidth={2}
             fill="url(#alertGradient)"

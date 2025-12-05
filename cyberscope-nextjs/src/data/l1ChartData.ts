@@ -4,18 +4,21 @@ export interface AlertTimeData {
   time: string;
   alerts: number;
   hour?: number;
+  [key: string]: any;
 }
 
 export interface SeverityData {
   severity: string;
   count: number;
   color: string;
+  [key: string]: any;
 }
 
 export interface SourceData {
   source: string;
   count: number;
   color: string;
+  [key: string]: any;
 }
 
 export interface TopIPData {
@@ -23,6 +26,7 @@ export interface TopIPData {
   count: number;
   country: string;
   risk: 'Critical' | 'High' | 'Medium' | 'Low';
+  [key: string]: any;
 }
 
 // Alerts Over Time - Hourly data for the last 24 hours

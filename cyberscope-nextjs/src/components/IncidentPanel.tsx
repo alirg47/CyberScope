@@ -83,7 +83,7 @@ const IncidentPanel: React.FC<IncidentPanelProps> = ({ incident, onResolve, onEs
                         </span>
                     </div>
                     <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                        {incident.id} • Assigned to {incident.assignee} • Created {formatTimestamp(incident.createdAt)}
+                        {incident.incident_id} • Assigned to {incident.l2_analyst || incident.created_by} • Created {formatTimestamp(incident.created_at)}
                     </div>
                 </div>
             </div>
@@ -129,7 +129,7 @@ const IncidentPanel: React.FC<IncidentPanelProps> = ({ incident, onResolve, onEs
                             background: 'rgba(0, 0, 0, 0.3)',
                             borderRadius: 'var(--radius-md)'
                         }}>
-                            {incident.description}
+                            {incident.summary}
                         </div>
                     </div>
 
@@ -144,7 +144,7 @@ const IncidentPanel: React.FC<IncidentPanelProps> = ({ incident, onResolve, onEs
                         <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginBottom: '0.5rem' }}>
                             Kill Chain Progress
                         </div>
-                        <KillChainView killChain={incident.killChain} />
+                        <KillChainView killChain={incident.kill_chain} />
                     </div>
                 </div>
             )}
@@ -209,9 +209,9 @@ const IncidentPanel: React.FC<IncidentPanelProps> = ({ incident, onResolve, onEs
             {selectedTab === 'alerts' && (
                 <div>
                     <div style={{ marginBottom: 'var(--spacing-sm)', color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                        {incident.relatedAlerts.length} related alerts grouped into this incident
+                        {incident.related_alerts.length} related alerts grouped into this incident
                     </div>
-                    {incident.relatedAlerts.map((alert, index) => (
+                    {incident.related_alerts.map((alert, index) => (
                         <div key={index} style={{
                             padding: 'var(--spacing-md)',
                             background: 'rgba(0, 0, 0, 0.2)',
@@ -222,7 +222,7 @@ const IncidentPanel: React.FC<IncidentPanelProps> = ({ incident, onResolve, onEs
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <div>
                                     <div style={{ color: 'var(--text-primary)', fontWeight: 500 }}>
-                                        #{alert.id} - {alert.type}
+                                        #{alert.alert_id} - {alert.alert_type}
                                     </div>
                                     <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '0.25rem' }}>
                                         {alert.user} • {alert.host} • {formatTimestamp(alert.timestamp)}
@@ -248,7 +248,7 @@ const IncidentPanel: React.FC<IncidentPanelProps> = ({ incident, onResolve, onEs
                         }}>
                             <span>🧠</span> RAG Context - Historical Insights
                         </div>
-                        {incident.ragContext.map((context, index) => (
+                        {incident.rag_context.map((context, index) => (
                             <div key={index} style={{
                                 padding: 'var(--spacing-md)',
                                 background: 'rgba(139, 92, 246, 0.1)',
@@ -276,14 +276,14 @@ const IncidentPanel: React.FC<IncidentPanelProps> = ({ incident, onResolve, onEs
             }}>
                 <button
                     className="btn btn-success"
-                    onClick={() => onResolve(incident.id)}
+                    onClick={() => onResolve(incident.incident_id)}
                     style={{ flex: 1 }}
                 >
                     ✓ Mark as Resolved
                 </button>
                 <button
                     className="btn btn-primary"
-                    onClick={() => onEscalate(incident.id)}
+                    onClick={() => onEscalate(incident.incident_id)}
                     style={{ flex: 1 }}
                 >
                     ⬆️ Escalate to L3
@@ -300,3 +300,4 @@ const IncidentPanel: React.FC<IncidentPanelProps> = ({ incident, onResolve, onEs
 };
 
 export default IncidentPanel;
+

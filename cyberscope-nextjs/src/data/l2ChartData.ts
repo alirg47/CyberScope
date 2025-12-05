@@ -31,12 +31,14 @@ export interface IncidentStatusData {
     status: string;
     count: number;
     color: string;
+    [key: string]: any;
 }
 
 export interface UserAnomalyData {
     category: string;
     value: number;
     max: number;
+    [key: string]: any;
 }
 
 // Incident Timeline - Events for a specific incident investigation
