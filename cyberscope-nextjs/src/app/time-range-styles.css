@@ -1,0 +1,129 @@
+@media (max-width: 1024px) {
+    .kill-chain-node {
+        width: 36px;
+        height: 36px;
+    }
+
+    .kill-chain-label {
+        font-size: 0.5rem;
+    }
+}
+
+/* Time Range Filter - Aligned with Theme */
+.time-range-filter {
+    position: relative;
+    display: inline-block;
+}
+
+.time-range-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.time-range-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 243, 255, 0.3);
+}
+
+.time-range-button svg {
+    flex-shrink: 0;
+}
+
+.time-range-button .chevron {
+    transition: transform 0.2s ease;
+    opacity: 0.6;
+}
+
+.time-range-button .chevron.rotate {
+    transform: rotate(180deg);
+}
+
+.time-range-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+.time-range-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    min-width: 180px;
+    background: rgba(20, 20, 20, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    z-index: 1000;
+    animation: dropdownSlideIn 0.15s ease-out;
+}
+
+@keyframes dropdownSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.time-range-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.625rem 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.time-range-option:last-child {
+    border-bottom: none;
+}
+
+.time-range-option:hover {
+    background: rgba(0, 243, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.time-range-option.active {
+    background: rgba(0, 243, 255, 0.12);
+    color: var(--primary-accent);
+}
+
+.time-range-option .check-mark {
+    color: var(--primary-accent);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Stats Subtitle */
+.stats-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    opacity: 0.7;
+}
