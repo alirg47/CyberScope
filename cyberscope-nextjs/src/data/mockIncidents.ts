@@ -1,4 +1,6 @@
 // Incident Types and Interfaces
+import type { MitreAttackData, VirusTotalData } from './mockAlerts';
+
 export interface IncidentAlert {
     alert_id: string;
     alert_type: string;
@@ -6,6 +8,11 @@ export interface IncidentAlert {
     user?: string;
     host?: string;
     src_ip?: string;
+    // Preserve full alert for display
+    mitre_attack?: MitreAttackData;
+    virustotal_data?: VirusTotalData;
+    ai_summary?: string;
+    ai_recommendation?: string;
 }
 
 export interface TimelineEvent {
@@ -64,10 +71,17 @@ export interface Incident {
     l2_notes?: string;
     l2_timestamp?: string;
     l2_analyst?: string; // L2 analyst assigned
+    // Threat Intelligence (from escalated alert)
+    mitre_attack?: MitreAttackData;
+    virustotal_data?: VirusTotalData;
+    ai_summary?: string;
 }
 
 // Mock Incident Data (grouped and correlated alerts for L2)
 function generateMockIncidents(): Incident[] {
+    // Fix hydration error: Use static base time
+    const BASE_TIME = new Date('2024-12-12T12:00:00Z').getTime();
+
     return [
         {
             incident_id: 'INC-2024-001',
@@ -76,15 +90,15 @@ function generateMockIncidents(): Incident[] {
             status: 'In-Progress',
             created_by: 'Mohammad Al-Ahmad',
             l2_analyst: 'Ahmad Bin Saeed',
-            created_at: new Date(Date.now() - 7200000).toISOString(),
-            updated_at: new Date(Date.now() - 1800000).toISOString(),
+            created_at: new Date(BASE_TIME - 7200000).toISOString(),
+            updated_at: new Date(BASE_TIME - 1800000).toISOString(),
             summary: 'Multiple systems infected with ransomware variant. Lateral movement detected across network. Critical file servers encrypted. Ransom note demanding 50 BTC. Command and control servers identified.',
             l2_notes: 'Confirmed ransomware strain is LockBit 3.0. Isolated affected network segment. Working with IR team to restore from backups. C2 domains blocked at firewall.',
             related_alerts: [
-                { alert_id: 'ALT-000001', alert_type: 'Malware Detection', timestamp: new Date(Date.now() - 7200000).toISOString(), user: 'Fatimah Al-Zahrani', host: 'FILE-SERVER-01', src_ip: '192.168.1.100' },
-                { alert_id: 'ALT-000005', alert_type: 'Lateral Movement', timestamp: new Date(Date.now() - 6900000).toISOString(), user: 'Fatimah Al-Zahrani', host: 'FILE-SERVER-01' },
-                { alert_id: 'ALT-000012', alert_type: 'Command & Control', timestamp: new Date(Date.now() - 6600000).toISOString(), host: 'FILE-SERVER-01', src_ip: '45.142.120.10' },
-                { alert_id: 'ALT-000018', alert_type: 'Data Exfiltration', timestamp: new Date(Date.now() - 6300000).toISOString(), host: 'FILE-SERVER-01', src_ip: '45.142.120.10' }
+                { alert_id: 'ALT-000001', alert_type: 'Malware Detection', timestamp: new Date(BASE_TIME - 7200000).toISOString(), user: 'Fatimah Al-Zahrani', host: 'FILE-SERVER-01', src_ip: '192.168.1.100' },
+                { alert_id: 'ALT-000005', alert_type: 'Lateral Movement', timestamp: new Date(BASE_TIME - 6900000).toISOString(), user: 'Fatimah Al-Zahrani', host: 'FILE-SERVER-01' },
+                { alert_id: 'ALT-000012', alert_type: 'Command & Control', timestamp: new Date(BASE_TIME - 6600000).toISOString(), host: 'FILE-SERVER-01', src_ip: '45.142.120.10' },
+                { alert_id: 'ALT-000018', alert_type: 'Data Exfiltration', timestamp: new Date(BASE_TIME - 6300000).toISOString(), host: 'FILE-SERVER-01', src_ip: '45.142.120.10' }
             ],
             timeline: [
                 { time: '14:20', event: 'Suspicious email with malicious attachment opened', stage: 'Delivery', host: 'WORKSTATION-45', mitre_technique: 'T1566.001 - Phishing: Spearphishing Attachment' },
@@ -131,17 +145,17 @@ function generateMockIncidents(): Incident[] {
             title: 'APT Credential Harvesting Campaign',
             severity: 'High',
             status: 'Escalated to L3',
-            created_by: 'Ali Al-Mutairi',
+            created_by: 'Ali AL-Ghannam',
             l2_analyst: 'Khalid Al-Harbi',
-            created_at: new Date(Date.now() - 172800000).toISOString(),
-            updated_at: new Date(Date.now() - 86400000).toISOString(),
+            created_at: new Date(BASE_TIME - 172800000).toISOString(),
+            updated_at: new Date(BASE_TIME - 86400000).toISOString(),
             summary: 'Sophisticated phishing campaign targeting executives. Multiple credential theft attempts detected. Attackers using typosquatted domains mimicking internal services. Evidence of reconnaissance and targeted social engineering.',
             l2_notes: 'Escalated to L3 for threat hunting. Pattern matches APT28 tactics. Recommend comprehensive account audit and MFA enforcement.',
             l2_action: 'Escalate to L3',
             related_alerts: [
-                { alert_id: 'ALT-000023', alert_type: 'Phishing Attempt', timestamp: new Date(Date.now() - 172800000).toISOString(), user: 'Omar Al-Mansour' },
-                { alert_id: 'ALT-000031', alert_type: 'Suspicious Login', timestamp: new Date(Date.now() - 169200000).toISOString(), user: 'Omar Al-Mansour', src_ip: '193.106.191.77' },
-                { alert_id: 'ALT-000042', alert_type: 'Privilege Escalation', timestamp: new Date(Date.now() - 165600000).toISOString(), user: 'Omar Al-Mansour', host: 'DC-PRIMARY-01' }
+                { alert_id: 'ALT-000023', alert_type: 'Phishing Attempt', timestamp: new Date(BASE_TIME - 172800000).toISOString(), user: 'Omar Al-Mansour' },
+                { alert_id: 'ALT-000031', alert_type: 'Suspicious Login', timestamp: new Date(BASE_TIME - 169200000).toISOString(), user: 'Omar Al-Mansour', src_ip: '193.106.191.77' },
+                { alert_id: 'ALT-000042', alert_type: 'Privilege Escalation', timestamp: new Date(BASE_TIME - 165600000).toISOString(), user: 'Omar Al-Mansour', host: 'DC-PRIMARY-01' }
             ],
             timeline: [
                 { time: '09:15', event: 'Spearphishing email received', stage: 'Reconnaissance', host: 'WORKSTATION-12', mitre_technique: 'T1566.002 - Phishing: Spearphishing Link' },
@@ -188,14 +202,14 @@ function generateMockIncidents(): Incident[] {
             status: 'Closed',
             created_by: 'Fatimah Al-Zahrani',
             l2_analyst: 'Noor Al-Shamsi',
-            created_at: new Date(Date.now() - 432000000).toISOString(),
-            updated_at: new Date(Date.now() - 259200000).toISOString(),
+            created_at: new Date(BASE_TIME - 432000000).toISOString(),
+            updated_at: new Date(BASE_TIME - 259200000).toISOString(),
             summary: 'Employee accessed and exfiltrated sensitive customer data before resignation. Large file transfers to personal cloud storage detected. Policy violations and unauthorized data access confirmed.',
             l2_notes: 'Investigation completed. Employee terminated and legal action initiated. All exfiltrated data deleted from cloud storage. Implemented enhanced DLP policies.',
             l2_action: 'Close',
             related_alerts: [
-                { alert_id: 'ALT-000056', alert_type: 'Data Exfiltration', timestamp: new Date(Date.now() - 432000000).toISOString(), user: 'Saad Al-Qarni', host: 'WORKSTATION-78' },
-                { alert_id: 'ALT-000059', alert_type: 'Suspicious Login', timestamp: new Date(Date.now() - 428400000).toISOString(), user: 'Saad Al-Qarni' }
+                { alert_id: 'ALT-000056', alert_type: 'Data Exfiltration', timestamp: new Date(BASE_TIME - 432000000).toISOString(), user: 'Saad Al-Qarni', host: 'WORKSTATION-78' },
+                { alert_id: 'ALT-000059', alert_type: 'Suspicious Login', timestamp: new Date(BASE_TIME - 428400000).toISOString(), user: 'Saad Al-Qarni' }
             ],
             timeline: [
                 { time: '18:30', event: 'After-hours login detected', stage: 'Initial Access', host: 'WORKSTATION-78', mitre_technique: 'T1078 - Valid Accounts' },
@@ -239,14 +253,14 @@ function generateMockIncidents(): Incident[] {
             status: 'Closed',
             created_by: 'Mohammad Al-Ahmad',
             l2_analyst: 'Ahmad Bin Saeed',
-            created_at: new Date(Date.now() - 604800000).toISOString(),
-            updated_at: new Date(Date.now() - 518400000).toISOString(),
+            created_at: new Date(BASE_TIME - 604800000).toISOString(),
+            updated_at: new Date(BASE_TIME - 518400000).toISOString(),
             summary: 'Cryptomining malware discovered on multiple workstations. High CPU usage and network traffic to mining pools detected. Malware distributed via compromised software update mechanism.',
             l2_notes: 'All affected systems cleaned and patched. Software vendor notified of compromise. No data breach confirmed.',
             l2_action: 'Close',
             related_alerts: [
-                { alert_id: 'ALT-000072', alert_type: 'Malware Detection', timestamp: new Date(Date.now() - 604800000).toISOString(), host: 'WORKSTATION-23' },
-                { alert_id: 'ALT-000078', alert_type: 'Command & Control', timestamp: new Date(Date.now() - 601200000).toISOString(), host: 'WORKSTATION-23', src_ip: '185.220.101.45' }
+                { alert_id: 'ALT-000072', alert_type: 'Malware Detection', timestamp: new Date(BASE_TIME - 604800000).toISOString(), host: 'WORKSTATION-23' },
+                { alert_id: 'ALT-000078', alert_type: 'Command & Control', timestamp: new Date(BASE_TIME - 601200000).toISOString(), host: 'WORKSTATION-23', src_ip: '185.220.101.45' }
             ],
             timeline: [
                 { time: '14:00', event: 'Automatic software update initiated', stage: 'Initial Access', host: 'WORKSTATION-23', mitre_technique: 'T1195.002 - Supply Chain Compromise' },
@@ -288,13 +302,13 @@ function generateMockIncidents(): Incident[] {
             title: 'SQL Injection Attack on Web Application',
             severity: 'High',
             status: 'Open',
-            created_by: 'Ali Al-Mutairi',
-            created_at: new Date(Date.now() - 3600000).toISOString(),
-            updated_at: new Date(Date.now() - 1800000).toISOString(),
+            created_by: 'Ali AL-Ghannam',
+            created_at: new Date(BASE_TIME - 3600000).toISOString(),
+            updated_at: new Date(BASE_TIME - 1800000).toISOString(),
             summary: 'Multiple SQL injection attempts detected on customer portal. Attacker attempting database enumeration and data extraction. WAF blocking most attempts but some bypasses detected.',
             related_alerts: [
-                { alert_id: 'ALT-000091', alert_type: 'SQL Injection', timestamp: new Date(Date.now() - 3600000).toISOString(), src_ip: '45.155.205.93' },
-                { alert_id: 'ALT-000095', alert_type: 'SQL Injection', timestamp: new Date(Date.now() - 3300000).toISOString(), src_ip: '45.155.205.93' }
+                { alert_id: 'ALT-000091', alert_type: 'SQL Injection', timestamp: new Date(BASE_TIME - 3600000).toISOString(), src_ip: '45.155.205.93' },
+                { alert_id: 'ALT-000095', alert_type: 'SQL Injection', timestamp: new Date(BASE_TIME - 3300000).toISOString(), src_ip: '45.155.205.93' }
             ],
             timeline: [
                 { time: '16:10', event: 'Initial SQL injection probe', stage: 'Reconnaissance', host: 'WEB-SERVER-01', mitre_technique: 'T1190 - Exploit Public-Facing Application' },

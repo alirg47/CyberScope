@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
 import ChartContainer from './ChartContainer';
 import TimeRangeFilter from '../TimeRangeFilter';
@@ -15,7 +15,22 @@ interface AlertsOverTimeChartProps {
 
 export default function AlertsOverTimeChart({ data, view, showTimeFilter = true }: AlertsOverTimeChartProps) {
   const [timeRange, setTimeRange] = useState<TimeRange>('24h');
-  const chartData = data || generateAlertsOverTime(timeRange);
+
+  // Generate data based on time range, or use provided data
+  const [chartData, setChartData] = useState<any[]>(data || []);
+
+  useEffect(() => {
+    if (data) {
+      setChartData(data);
+    } else {
+      // Generate data on client side only to avoid hydration mismatch
+      const rawData = generateAlertsOverTime(timeRange);
+      setChartData(rawData.map(point => ({
+        time: point.label,
+        alerts: point.value
+      })));
+    }
+  }, [data, timeRange]);
 
   return (
     <ChartContainer

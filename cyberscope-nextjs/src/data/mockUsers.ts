@@ -45,15 +45,16 @@ export const mockUsers: User[] = [
     },
     {
         id: 'USR-003',
-        name: 'Ali Al-Mutairi',
-        nameEn: 'Ali Al-Mutairi',
-        role: 'L1',
-        email: 'ali.mutairi@cyberscope.com',
+        name: 'Ali AL-Ghannam',
+        nameEn: 'Ali AL-Ghannam',
+        role: 'Lead',
+        email: 'ali.alghannam@soax.sa',
         department: 'Security Operations',
         lastLogin: '2024-11-30T13:45:00Z',
         statistics: {
-            alertsProcessed: 1103,
-            avgResponseTime: 2.1
+            incidentsHandled: 145,
+            threatsConfirmed: 48,
+            avgResponseTime: 32
         }
     },
     // L2 Analysts
@@ -129,12 +130,12 @@ export const mockUsers: User[] = [
     // Lead
     {
         id: 'USR-009',
-        name: 'Fahad Al-Qahtani',
-        nameEn: 'Fahad Al-Qahtani',
+        name: 'Wael Hawi',
+        nameEn: 'Wael Hawi',
         role: 'Lead',
-        email: 'fahad.qahtani@cyberscope.com',
+        email: 'wael.hawi@cyberscope.com',
         department: 'Security Operations',
-        lastLogin: '2024-11-30T15:45:00Z',
+        lastLogin: '2024-11-30T16:45:00Z',
         statistics: {
             incidentsHandled: 156,
             threatsConfirmed: 52,
@@ -154,5 +155,5 @@ export const getUsersByRole = (role: User['role']): User[] => {
 
 export const getCurrentUser = (): User => {
     // Return a default current user (you can change this logic)
-    return mockUsers[8]; // Fahad Al-Qahtani (Lead)
+    return mockUsers[8]; // Wael Hawi (Lead)
 };

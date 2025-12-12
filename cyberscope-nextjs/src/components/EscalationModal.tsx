@@ -90,7 +90,7 @@ export default function EscalationModal({ isOpen, onClose, onEscalate, title, ta
 
                 <div style={{ marginBottom: '20px' }}>
                     <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
-                        Escalation Notes
+                        Escalation Notes (Optional)
                     </label>
                     <textarea
                         value={note}
@@ -113,7 +113,7 @@ export default function EscalationModal({ isOpen, onClose, onEscalate, title, ta
 
                 <div style={{ marginBottom: '24px' }}>
                     <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
-                        Attachments (PCAP, Logs, Screenshots)
+                        Attachments (Optional: .pcap, .log, .pdf, .txt, .png, .jpg)
                     </label>
 
                     <div
@@ -134,6 +134,7 @@ export default function EscalationModal({ isOpen, onClose, onEscalate, title, ta
                             type="file"
                             multiple
                             ref={fileInputRef}
+                            accept=".pcap,.log,.pdf,.txt,.png,.jpg,.jpeg"
                             style={{ display: 'none' }}
                             onChange={handleFileChange}
                         />

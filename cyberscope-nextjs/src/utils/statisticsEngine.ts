@@ -10,8 +10,8 @@
 export const STATISTICS_CONFIG = {
     // Alert Distribution (Daily)
     alerts: {
-        total: { min: 90, max: 120 },        // Total alerts per day
-        filtered: { min: 0, max: 80 },       // Filtered/displayed alerts
+        total: { min: 80, max: 150 },        // Total alerts per day (realistic for demo SOC)
+        filteredPercent: { min: 0.20, max: 0.50 },  // 20-50% filtered rate
         severity: {
             critical: { min: 0.03, max: 0.07 },  // 3-7%
             high: { min: 0.15, max: 0.25 },      // 15-25%
@@ -22,7 +22,7 @@ export const STATISTICS_CONFIG = {
 
     // Incident Distribution
     incidents: {
-        total: { min: 2, max: 8 },           // Daily incidents
+        total: { min: 5, max: 12 },          // Daily incidents (proportional to 80-150 alerts)
         status: {
             open: { min: 0.30, max: 0.40 },           // 30-40%
             inProgress: { min: 0.20, max: 0.30 },     // 20-30%
@@ -33,9 +33,9 @@ export const STATISTICS_CONFIG = {
 
     // Threat Hunting
     threatHunting: {
-        campaigns: { min: 0, max: 4 },
-        iocMatches: { min: 5, max: 25 },
-        patternDetections: { min: 0, max: 12 },
+        campaigns: { min: 2, max: 5 },       // Active campaigns
+        iocMatches: { min: 50, max: 120 },   // IOC matches (proportional)
+        patternDetections: { min: 15, max: 35 },  // Pattern detections
     },
 };
 
@@ -109,10 +109,12 @@ export function generateAlertStatistics(): AlertStatistics {
         STATISTICS_CONFIG.alerts.total.max
     );
 
-    const filtered = randomInRange(
-        STATISTICS_CONFIG.alerts.filtered.min,
-        STATISTICS_CONFIG.alerts.filtered.max
+    // Calculate filtered as percentage of total (15-40%)
+    const filteredPercent = randomPercentage(
+        STATISTICS_CONFIG.alerts.filteredPercent.min,
+        STATISTICS_CONFIG.alerts.filteredPercent.max
     );
+    const filtered = Math.floor(total * filteredPercent);
 
     // Generate severity percentages
     const severityPercentages = normalizePercentages([

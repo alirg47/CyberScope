@@ -29,7 +29,10 @@ export default function TopNav() {
                 </div>
                 <div className="logo-content">
                     <div className="logo-text">SOAx</div>
-                    <div className="logo-subtitle">SOC Operations Assistant by CyberScope</div>
+                    <div className="logo-subtitle">
+                        SOC Operations Assistant<br />
+                        Powered by CyberScope
+                    </div>
                 </div>
             </div>
 

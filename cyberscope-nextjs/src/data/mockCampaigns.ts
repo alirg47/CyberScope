@@ -1,4 +1,6 @@
 // Campaign Types and Interfaces
+import type { TimelineEvent, IncidentAlert, IncidentGraph } from './mockIncidents';
+
 export interface MISPIndicators {
     ips: string[];
     domains: string[];
@@ -8,6 +10,20 @@ export interface MISPIndicators {
 
 export type CampaignStatus = 'Active' | 'Monitoring' | 'Resolved' | 'False Positive';
 export type RiskLevel = 'Critical' | 'High' | 'Medium' | 'Low';
+
+// L3 Threat Hunting Intelligence Analysis
+export interface ThreatHuntingAnalysis {
+    technique_id: string;              // MITRE ATT&CK technique ID
+    technique_name: string;            // Exact MITRE technique name
+    threat_impact: string;             // MITRE tactic category
+    ai_confidence: number;             // Confidence score 1-100
+    technique_description: string;     // Short explanation of the technique
+    detection_strategies: string[];    // Realistic SOC detection methods
+    ttp_prediction: string[];          // Predicted next MITRE steps/behaviors
+    attack_probability_score: number;  // Percentage likelihood of escalation
+    early_indicators: string[];        // Pre-attack/early compromise evidence
+    recommended_action: string;        // SOC-friendly proactive action
+}
 
 export interface Campaign {
     campaign_id: string;
@@ -23,9 +39,28 @@ export interface Campaign {
     created_at: string;
     threat_actor?: string;
     mitre_tactics: string[];
+
+    // L2 Investigation Data (preserved from incident escalation)
+    escalated_from_incident_id?: string;
+    l2_investigation?: {
+        analyst: string;
+        notes: string;
+        timeline: TimelineEvent[];
+        related_alerts: IncidentAlert[];
+        graph: IncidentGraph;
+        escalation_note: string;
+        escalation_timestamp: string;
+        escalated_by: string;
+    };
+
+    // L3 Threat Hunting Analysis
+    threat_analysis?: ThreatHuntingAnalysis;
 }
 
 // Mock Campaign Data (L3 threat hunting)
+// Fix hydration error: Use static base time
+const BASE_TIME = new Date('2024-12-12T12:00:00Z').getTime();
+
 export const mockCampaigns: Campaign[] = [
     {
         campaign_id: 'CAMP-2024-001',
@@ -34,7 +69,7 @@ export const mockCampaigns: Campaign[] = [
         risk_level: 'Critical',
         status: 'Active',
         created_by: 'Omar Al-Mansour',
-        created_at: new Date(Date.now() - 1209600000).toISOString(),
+        created_at: new Date(BASE_TIME - 1209600000).toISOString(),
         threat_actor: 'APT28 (Fancy Bear)',
         pattern_type: 'Targeted Espionage',
         l3_notes: 'Ongoing campaign with high confidence attribution. Attackers using zero-day vulnerabilities. Recommend immediate patching and enhanced monitoring, Strong correlation with recent geopolitical events.',
@@ -79,7 +114,7 @@ export const mockCampaigns: Campaign[] = [
         risk_level: 'High',
         status: 'Monitoring',
         created_by: 'Layla Al-Dosari',
-        created_at: new Date(Date.now() - 2592000000).toISOString(),
+        created_at: new Date(BASE_TIME - 2592000000).toISOString(),
         threat_actor: 'LockBit Ransomware Group',
         pattern_type: 'Ransomware-as-a-Service',
         l3_notes: 'Campaign activity decreased after law enforcement action. Continue monitoring for resurgence. Affiliates may rebrand and continue operations. Focus on detection of lateral movement patterns.',
@@ -119,7 +154,7 @@ export const mockCampaigns: Campaign[] = [
         risk_level: 'High',
         status: 'Active',
         created_by: 'Omar Al-Mansour',
-        created_at: new Date(Date.now() - 1814400000).toISOString(),
+        created_at: new Date(BASE_TIME - 1814400000).toISOString(),
         threat_actor: 'FluBot Gang',
         pattern_type: 'Mobile Malware Campaign',
         l3_notes: 'New variant detected with enhanced evasion techniques. Coordinate with mobile security team. Recommend user awareness training on SMS phishing. Monitor app stores for malicious banking apps.',
@@ -155,7 +190,7 @@ export const mockCampaigns: Campaign[] = [
         risk_level: 'Medium',
         status: 'Resolved',
         created_by: 'Layla Al-Dosari',
-        created_at: new Date(Date.now() - 3456000000).toISOString(),
+        created_at: new Date(BASE_TIME - 3456000000).toISOString(),
         threat_actor: 'Unknown (Financially Motivated)',
         pattern_type: 'Supply Chain Compromise',
         l3_notes: 'Campaign resolved after vendor patched compromised update server. All affected customers notified. Lessons learned documented for supply chain risk management. Similar tactics may reemerge.',
@@ -190,7 +225,7 @@ export const mockCampaigns: Campaign[] = [
         risk_level: 'Medium',
         status: 'Monitoring',
         created_by: 'Omar Al-Mansour',
-        created_at: new Date(Date.now() - 2419200000).toISOString(),
+        created_at: new Date(BASE_TIME - 2419200000).toISOString(),
         threat_actor: 'West African BEC Group',
         pattern_type: 'Business Email Compromise',
         l3_notes: 'No technical IOCs - purely social engineering. Train finance staff on verification procedures. Implement out-of-band confirmation for large wire transfers. Monitor for lookalike domains.',
@@ -214,7 +249,244 @@ export const mockCampaigns: Campaign[] = [
     }
 ];
 
+// Generate realistic threat analysis based on campaign MITRE tactics
+function generateThreatAnalysis(campaign: Campaign): ThreatHuntingAnalysis {
+    const firstTactic = campaign.mitre_tactics[0] || 'TA0001 - Initial Access';
+    const tacticMap: Record<string, any> = {
+        'TA0001': {
+            id: 'T1566.001',
+            name: 'Spearphishing Attachment',
+            impact: 'Initial Access',
+            description: 'Adversaries send spearphishing emails with malicious attachments to gain initial access.',
+            detection: [
+                'Monitor email gateway for suspicious attachments',
+                'Analyze email headers for spoofing indicators',
+                'Sandboxing of email attachments',
+                'User-reported phishing analysis'
+            ],
+            ttp_next: [
+                'T1204.002 - User Execution: Malicious File',
+                'T1059.001 - PowerShell execution',
+                'T1547.001 - Registry Run Keys for persistence'
+            ],
+            indicators: [
+                'Emails from recently registered domains',
+                'Attachments with double extensions',
+                'Macro-enabled documents from external sources'
+            ]
+        },
+        'TA0002': {
+            id: 'T1059.001',
+            name: 'PowerShell',
+            impact: 'Execution',
+            description: 'Adversaries abuse PowerShell to execute commands and scripts.',
+            detection: [
+                'PowerShell logging and monitoring',
+                'Script block logging analysis',
+                'Behavioral detection of obfuscated commands',
+                'Parent-child process relationship monitoring'
+            ],
+            ttp_next: [
+                'T1003.001 - LSASS Memory dumping',
+                'T1059.003 - Windows Command Shell',
+                'T1071.001 - C2 over web protocols'
+            ],
+            indicators: [
+                'Base64-encoded PowerShell commands',
+                'Download cradles (IEX, Invoke-WebRequest)',
+                'Uncommon parent processes spawning PowerShell'
+            ]
+        },
+        'TA0003': {
+            id: 'T1547.001',
+            name: 'Registry Run Keys / Startup Folder',
+            impact: 'Persistence',
+            description: 'Adversaries achieve persistence by adding programs to startup locations.',
+            detection: [
+                'Monitor registry key modifications',
+                'Baseline startup folder contents',
+                'Alert on new autoruns entries',
+                'Sysmon Event ID 13 monitoring'
+            ],
+            ttp_next: [
+                'T1055 - Process Injection',
+                'T1543.003 - Windows Service creation',
+                'T1053.005 - Scheduled Task persistence'
+            ],
+            indicators: [
+                'Modifications to Run/RunOnce registry keys',
+                'New files in startup folders',
+                'Suspicious scheduled tasks'
+            ]
+        },
+        'TA0004': {
+            id: 'T1068',
+            name: 'Exploitation for Privilege Escalation',
+            impact: 'Privilege Escalation',
+            description: 'Adversaries exploit software vulnerabilities to elevate privileges.',
+            detection: [
+                'Monitor for unexpected privilege changes',
+                'Vulnerability scanning and patching',
+                'User Account Control (UAC) bypass detection',
+                'Kernel exploit detection via endpoint monitoring'
+            ],
+            ttp_next: [
+                'T1003.001 - Credential Dumping',
+                'T1078.003 - Local Accounts abuse',
+                'T1136 - Create Account for persistence'
+            ],
+            indicators: [
+                'Processes running with unexpected privileges',
+                'Known CVE exploitation attempts',
+                'Modifications to access tokens'
+            ]
+        },
+        'TA0006': {
+            id: 'T1003.001',
+            name: 'LSASS Memory',
+            impact: 'Credential Access',
+            description: 'Adversaries access LSASS process memory to obtain credentials.',
+            detection: [
+                'Monitor LSASS process access',
+                'Detect credential dumping tools (Mimikatz)',
+                'Alert on suspicious process injection',
+                'EDR behavioral detection'
+            ],
+            ttp_next: [
+                'T1021.002 - SMB/Windows Admin Shares lateral movement',
+                'T1550.002 - Pass the Hash',
+                'T1078 - Valid Accounts usage'
+            ],
+            indicators: [
+                'Suspicious LSASS process access',
+                'Known credential dumping tool signatures',
+                'LSASS memory dumps'
+            ]
+        },
+        'TA0008': {
+            id: 'T1021.002',
+            name: 'SMB/Windows Admin Shares',
+            impact: 'Lateral Movement',
+            description: 'Adversaries use SMB to move laterally across network.',
+            detection: [
+                'Monitor SMB traffic patterns',
+                'Detect admin share enumeration',
+                'Alert on unusual logon patterns',
+                'Track remote service  creation'
+            ],
+            ttp_next: [
+                'T1569.002 - Service Execution',
+                'T1053.005 - Scheduled Task on remote systems',
+                'T1047 - WMI for remote execution'
+            ],
+            indicators: [
+                'ADMIN$ share access from unusual hosts',
+                'Spike in SMB connections',
+                'Service installations on multiple hosts'
+            ]
+        },
+        'TA0009': {
+            id: 'T1005',
+            name: 'Data from Local System',
+            impact: 'Collection',
+            description: 'Adversaries search and collect data from local system sources.',
+            detection: [
+                'File access monitoring',
+                'Detect mass file reading operations',
+                'Monitor for archiving tools',
+                'Track sensitive file access'
+            ],
+            ttp_next: [
+                'T1560.001 - Archive via utility',
+                'T1041 - Exfiltration Over C2 Channel',
+                'T1071.001 - Web-based exfiltration'
+            ],
+            indicators: [
+                'Access to sensitive directories',
+                'Use of archiving utilities (7zip, WinRAR)',
+                'Large file operations'
+            ]
+        },
+        'TA0011': {
+            id: 'T1071.001',
+            name: 'Web Protocols',
+            impact: 'Command and Control',
+            description: 'Adversaries use web protocols for C2 communications.',
+            detection: [
+                'SSL/TLS inspection',
+                'Detect beaconing behavior',
+                'Monitor for C2 domain IOCs',
+                'Analyze HTTP/HTTPS traffic patterns'
+            ],
+            ttp_next: [
+                'T1041 - Exfiltration Over C2',
+                'T1105 - Ingress Tool Transfer',
+                'T1219 - Remote Access Software'
+            ],
+            indicators: [
+                'Regular beaconing to external IPs',
+                'Communication with known malicious domains',
+                'Unusual user-agent strings'
+            ]
+        },
+        'TA0040': {
+            id: 'T1486',
+            name: 'Data Encrypted for Impact',
+            impact: 'Impact',
+            description: 'Adversaries encrypt data to disrupt availability and/or extort payment.',
+            detection: [
+                'Monitor for mass file encryption',
+                'Detect ransomware signatures',
+                'Alert on unusual file extension changes',
+                'Behavioral ransomware detection'
+            ],
+            ttp_next: [
+                'T1491 - Defacement',
+                'T1490 - Inhibit System Recovery',
+                'T1489 - Service Stop of backups'
+            ],
+            indicators: [
+                'Rapid file modifications across system',
+                'Ransom notes (README.txt, HOW_TO_DECRYPT)',
+                'Known ransomware file extensions'
+            ]
+        }
+    };
+
+    const tacticCode = firstTactic.substring(0, 6);
+    const tacticInfo = tacticMap[tacticCode] || tacticMap['TA0001'];
+
+    const riskScore = campaign.risk_level === 'Critical' ? 95 :
+        campaign.risk_level === 'High' ? 85 :
+            campaign.risk_level === 'Medium' ? 70 : 55;
+
+    const attackProb = campaign.status === 'Active' ?
+        (campaign.risk_level === 'Critical' ? 92 : 78) :
+        (campaign.status === 'Monitoring' ? 55 : 25);
+
+    return {
+        technique_id: tacticInfo.id,
+        technique_name: tacticInfo.name,
+        threat_impact: tacticInfo.impact,
+        ai_confidence: riskScore,
+        technique_description: tacticInfo.description,
+        detection_strategies: tacticInfo.detection,
+        ttp_prediction: tacticInfo.ttp_next,
+        attack_probability_score: attackProb,
+        early_indicators: tacticInfo.indicators,
+        recommended_action: campaign.status === 'Active' ?
+            `Immediate threat - Deploy enhanced monitoring for ${tacticInfo.name}. Isolate affected systems and hunt for IOCs across environment.` :
+            `Monitor for escalation indicators. Review logs for ${tacticInfo.name} patterns. Update detection rules.`
+    };
+}
+
+// Add threat analysis to all campaigns
+mockCampaigns.forEach(campaign => {
+    campaign.threat_analysis = generateThreatAnalysis(campaign);
+});
+
 // Helper functions
+
 export const getCampaignById = (id: string): Campaign | undefined => {
     return mockCampaigns.find(campaign => campaign.campaign_id === id);
 };

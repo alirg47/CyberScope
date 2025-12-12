@@ -1,0 +1,32 @@
+# ✅ Core dependencies
+python-dotenv
+requests
+
+# ✅ HuggingFace Inference API
+huggingface_hub>=0.20.3
+
+# ✅ LangGraph & LangChain
+langgraph
+langchain
+langchain-core
+langchainhub
+openai  # optional if planning to support OpenAI models
+
+# ✅ Cyber Threat Intelligence (RAG Sources)
+stix2
+taxii2-client
+
+# ✅ Logging, Debugging, Visualization
+rich
+
+# ✅ Optional (if you plan to serve models locally later)
+torch
+transformers
+
+# ⚠️ Note:
+# If you're using a local model or want faster dev iteration, consider adding:
+# fastapi
+# uvicorn
+
+# ✅ Compatibility
+# Python >= 3.10 recommended

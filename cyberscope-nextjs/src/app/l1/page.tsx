@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useUser } from '@/context/UserContext';
 import { useData } from '@/context/DataContext';
@@ -12,7 +12,6 @@ import AlertsBySeverityChart from '@/components/charts/AlertsBySeverityChart';
 import AlertSourcesChart from '@/components/charts/AlertSourcesChart';
 import TopTriggeringIPsChart from '@/components/charts/TopTriggeringIPsChart';
 import {
-    calculateAlertsOverTime,
     calculateAlertsBySeverity,
     calculateAlertSources,
     calculateTopIPs
@@ -24,17 +23,21 @@ export default function L1Page() {
     const { alerts, escalateAlert } = useData();
     const [filter, setFilter] = useState<'All' | 'Critical' | 'High' | 'Medium' | 'Low'>('All');
     const [statusFilter, setStatusFilter] = useState<'All' | 'Open' | 'Escalated' | 'Ignored'>('All');
+    const [mounted, setMounted] = useState(false);
 
     // Escalation State
     const [isEscalationModalOpen, setIsEscalationModalOpen] = useState(false);
     const [selectedAlertId, setSelectedAlertId] = useState<string | null>(null);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     if (!canAccess('/l1')) {
         return <AccessDenied />;
     }
 
     // Calculate Chart Data
-    const alertsOverTime = calculateAlertsOverTime(alerts, 'hourly');
     const alertsBySeverity = calculateAlertsBySeverity(alerts);
     const alertSources = calculateAlertSources(alerts);
     const topIPs = calculateTopIPs(alerts);
@@ -76,7 +79,7 @@ export default function L1Page() {
             {/* Visualization Section */}
             <div className="charts-grid">
                 <div className="chart-full-width">
-                    <AlertsOverTimeChart data={alertsOverTime} view="hourly" />
+                    <AlertsOverTimeChart />
                 </div>
                 <AlertsBySeverityChart data={alertsBySeverity} />
                 <AlertSourcesChart data={alertSources} />
@@ -116,21 +119,31 @@ export default function L1Page() {
                 </div>
             </div>
 
-            <div className="alerts-grid">
-                {filteredAlerts.length === 0 ? (
+            {mounted && (
+                <div className="alerts-grid">
+                    {filteredAlerts.length === 0 ? (
+                        <div className="empty-state">
+                            <p>No alerts found matching your filters.</p>
+                        </div>
+                    ) : (
+                        filteredAlerts.map(alert => (
+                            <AlertCard
+                                key={alert.alert_id}
+                                alert={alert}
+                                onEscalate={handleEscalateClick}
+                            />
+                        ))
+                    )}
+                </div>
+            )}
+
+            {!mounted && (
+                <div className="alerts-grid">
                     <div className="empty-state">
-                        <p>No alerts found matching your filters.</p>
+                        <p>Loading alerts...</p>
                     </div>
-                ) : (
-                    filteredAlerts.map(alert => (
-                        <AlertCard
-                            key={alert.alert_id}
-                            alert={alert}
-                            onEscalate={handleEscalateClick}
-                        />
-                    ))
-                )}
-            </div>
+                </div>
+            )}
 
             <EscalationModal
                 isOpen={isEscalationModalOpen}

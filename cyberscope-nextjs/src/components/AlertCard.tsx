@@ -1,7 +1,10 @@
 'use client';
 
 import { Alert } from '@/data/mockAlerts';
-import { Bot, Lightbulb, MessageSquare } from 'lucide-react';
+import MitreAttackCard from './ThreatIntel/MitreAttackCard';
+import VirusTotalCard from './ThreatIntel/VirusTotalCard';
+import AISummaryDisplay from './AISummaryDisplay';
+import { MessageSquare } from 'lucide-react';
 
 interface AlertCardProps {
     alert: Alert;
@@ -107,21 +110,18 @@ const AlertCard = ({ alert, onEscalate }: AlertCardProps) => {
                 </div>
             </div>
 
-            <div className="ai-summary-section">
-                <div className="section-header">
-                    <span className="section-icon"><Bot size={20} color="#3b82f6" /></span>
-                    <span className="section-title">AI Summary</span>
-                </div>
-                <p className="ai-summary-text">{alert.ai_summary}</p>
-            </div>
+            {/* AI Threat Analysis Display */}
+            <AISummaryDisplay summary={alert.ai_summary} />
 
-            <div className="ai-recommendation-section">
-                <div className="section-header">
-                    <span className="section-icon"><Lightbulb size={20} color="#facc15" /></span>
-                    <span className="section-title">AI Recommendation</span>
-                </div>
-                <p className="ai-recommendation-text">{alert.ai_recommendation}</p>
-            </div>
+            {/* MITRE ATT&CK Intelligence */}
+            {alert.mitre_attack && (
+                <MitreAttackCard mitre={alert.mitre_attack} />
+            )}
+
+            {/* VirusTotal Intelligence */}
+            {alert.virustotal_data && (
+                <VirusTotalCard vt={alert.virustotal_data} />
+            )}
 
             {alert.l1_comments && (
                 <div className="comments-section">

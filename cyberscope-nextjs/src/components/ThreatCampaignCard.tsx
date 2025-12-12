@@ -3,6 +3,12 @@
 import { Campaign } from '@/data/mockCampaigns';
 import { useState } from 'react';
 import { ChevronDown, ChevronRight, User, Link, Target, Search } from 'lucide-react';
+import L2InvestigationPanel from './L2InvestigationPanel';
+import AISummaryDisplay from './AISummaryDisplay';
+import MitreAttackCard from './ThreatIntel/MitreAttackCard';
+import VirusTotalCard from './ThreatIntel/VirusTotalCard';
+import KillChainView from './KillChainView';
+import ThreatHuntingAnalysisPanel from './ThreatHuntingAnalysisPanel';
 
 interface ThreatCampaignCardProps {
     campaign: Campaign;
@@ -46,6 +52,16 @@ const ThreatCampaignCard = ({ campaign }: ThreatCampaignCardProps) => {
                     <p className="campaign-id">{campaign.campaign_id}</p>
                 </div>
                 <div className="campaign-badges">
+                    {campaign.threat_analysis && (
+                        <>
+                            <span className="analysis-badge confidence-badge">
+                                AI: {campaign.threat_analysis.ai_confidence}%
+                            </span>
+                            <span className="analysis-badge probability-badge">
+                                Prob: {campaign.threat_analysis.attack_probability_score}%
+                            </span>
+                        </>
+                    )}
                     <span
                         className="risk-badge"
                         style={{
@@ -107,55 +123,65 @@ const ThreatCampaignCard = ({ campaign }: ThreatCampaignCardProps) => {
                 </div>
             )}
 
-            {isExpanded && campaign.misp_ioc_matches && (
+            {isExpanded && (
                 <div className="campaign-details">
-                    <div className="ioc-section">
-                        <h4>Indicators of Compromise (IOCs)</h4>
+                    {/* L3 Threat Hunting Analysis */}
+                    {campaign.threat_analysis && (
+                        <ThreatHuntingAnalysisPanel
+                            analysis={campaign.threat_analysis}
+                            campaignName={campaign.name}
+                        />
+                    )}
 
-                        {campaign.misp_ioc_matches.ips && campaign.misp_ioc_matches.ips.length > 0 && (
-                            <div className="ioc-group">
-                                <strong>IP Addresses:</strong>
-                                <ul>
-                                    {campaign.misp_ioc_matches.ips.map((ip, i) => (
-                                        <li key={i} className="ioc-item">{ip}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+                    {campaign.misp_ioc_matches && (
+                        <div className="ioc-section">
+                            <h4>Indicators of Compromise (IOCs)</h4>
 
-                        {campaign.misp_ioc_matches.domains && campaign.misp_ioc_matches.domains.length > 0 && (
-                            <div className="ioc-group">
-                                <strong>Domains:</strong>
-                                <ul>
-                                    {campaign.misp_ioc_matches.domains.map((domain, i) => (
-                                        <li key={i} className="ioc-item">{domain}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+                            {campaign.misp_ioc_matches.ips && campaign.misp_ioc_matches.ips.length > 0 && (
+                                <div className="ioc-group">
+                                    <strong>IP Addresses:</strong>
+                                    <ul>
+                                        {campaign.misp_ioc_matches.ips.map((ip, i) => (
+                                            <li key={i} className="ioc-item">{ip}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
 
-                        {campaign.misp_ioc_matches.hashes && campaign.misp_ioc_matches.hashes.length > 0 && (
-                            <div className="ioc-group">
-                                <strong>Hashes:</strong>
-                                <ul>
-                                    {campaign.misp_ioc_matches.hashes.map((hash, i) => (
-                                        <li key={i} className="ioc-item hash">{hash}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+                            {campaign.misp_ioc_matches.domains && campaign.misp_ioc_matches.domains.length > 0 && (
+                                <div className="ioc-group">
+                                    <strong>Domains:</strong>
+                                    <ul>
+                                        {campaign.misp_ioc_matches.domains.map((domain, i) => (
+                                            <li key={i} className="ioc-item">{domain}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
 
-                        {campaign.misp_ioc_matches.emails && campaign.misp_ioc_matches.emails.length > 0 && (
-                            <div className="ioc-group">
-                                <strong>Emails:</strong>
-                                <ul>
-                                    {campaign.misp_ioc_matches.emails.map((email, i) => (
-                                        <li key={i} className="ioc-item">{email}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </div>
+                            {campaign.misp_ioc_matches.hashes && campaign.misp_ioc_matches.hashes.length > 0 && (
+                                <div className="ioc-group">
+                                    <strong>Hashes:</strong>
+                                    <ul>
+                                        {campaign.misp_ioc_matches.hashes.map((hash, i) => (
+                                            <li key={i} className="ioc-item hash">{hash}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {campaign.misp_ioc_matches.emails && campaign.misp_ioc_matches.emails.length > 0 && (
+                                <div className="ioc-group">
+                                    <strong>Emails:</strong>
+                                    <ul>
+                                        {campaign.misp_ioc_matches.emails.map((email, i) => (
+                                            <li key={i} className="ioc-item">{email}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                     <div className="tactics-section">
                         <h4>MITRE ATT&CK Tactics</h4>
@@ -167,9 +193,54 @@ const ThreatCampaignCard = ({ campaign }: ThreatCampaignCardProps) => {
                     </div>
 
                     <div className="notes-section">
-                        <h4>L3 Notes</h4>
+                        <h4>L2 Notes</h4>
                         <p className="campaign-notes">{campaign.l3_notes}</p>
                     </div>
+
+                    {/* Threat Intelligence from L2 Investigation */}
+                    {campaign.l2_investigation && (
+                        <div className="threat-intel-section">
+                            <h4>Threat Intelligence</h4>
+
+                            {/* AI Threat Analysis */}
+                            {campaign.l2_investigation.related_alerts.some(alert => alert.ai_summary) && (
+                                <div className="intel-subsection">
+                                    <AISummaryDisplay
+                                        summary={campaign.l2_investigation.related_alerts.find(a => a.ai_summary)?.ai_summary || ''}
+                                    />
+                                </div>
+                            )}
+
+                            {/* MITRE ATT&CK Technique */}
+                            {campaign.l2_investigation.related_alerts.some(alert => alert.mitre_attack) && (
+                                <div className="intel-subsection">
+                                    <MitreAttackCard
+                                        mitre={campaign.l2_investigation.related_alerts.find(a => a.mitre_attack)?.mitre_attack!}
+                                    />
+                                </div>
+                            )}
+
+                            {/* VirusTotal Intelligence */}
+                            {campaign.l2_investigation.related_alerts.some(alert => alert.virustotal_data) && (
+                                <div className="intel-subsection">
+                                    <VirusTotalCard
+                                        vt={campaign.l2_investigation.related_alerts.find(a => a.virustotal_data)?.virustotal_data!}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* L2 Investigation History */}
+                    {campaign.l2_investigation && (
+                        <div className="l2-history-section">
+                            <h4>L2 Investigation History</h4>
+                            <p className="l2-history-note">
+                                This campaign was escalated from incident <strong>{campaign.escalated_from_incident_id}</strong>
+                            </p>
+                            <L2InvestigationPanel data={campaign.l2_investigation} />
+                        </div>
+                    )}
                 </div>
             )}
         </div>

@@ -94,7 +94,7 @@ const IncidentCard = ({ incident, onClick }: IncidentCardProps) => {
                 )}
                 <div className="meta-item">
                     <span className="meta-label">Created:</span>
-                    <span className="meta-value">{getTimeAgo(incident.created_at)}</span>
+                    <span className="meta-value" suppressHydrationWarning>{getTimeAgo(incident.created_at)}</span>
                 </div>
                 <div className="meta-item">
                     <span className="meta-label">Related Alerts:</span>

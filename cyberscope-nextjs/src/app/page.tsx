@@ -78,7 +78,7 @@ export default function HomePage() {
         <OverviewStatsCard
           icon={<Clock size={24} color="#f59e0b" />}
           title="Avg Processing Time"
-          value="2.3 min"
+          value="2.4 min"
           subtitle="Per alert"
           color="#f59e0b"
         />

@@ -1,0 +1,62 @@
+[
+  {
+    "description": "Suspicious scheduled task created outside the approved maintenance window.",
+    "username": "ops01",
+    "source_ip": "172.16.2.19",
+    "location": "Headquarters"
+  },
+  {
+    "description": "Unusually large outbound data transfer detected to an unclassified external IP.",
+    "username": "backup_srv",
+    "source_ip": "10.33.54.12",
+    "location": "Primary Datacenter"
+  },
+  {
+    "description": "Multiple failed logins followed by a successful authentication from the same IP.",
+    "username": "hr_admin",
+    "source_ip": "185.77.14.81",
+    "location": "HR Workstation"
+  },
+  {
+    "description": "Execution of a PowerShell command containing a Base64-encoded payload.",
+    "username": "itadmin",
+    "source_ip": "10.0.44.90",
+    "location": "Headquarters"
+  },
+  {
+    "description": "Outbound connection detected to a domain previously flagged for phishing activity.",
+    "username": "finance02",
+    "source_ip": "192.168.6.33",
+    "location": "Finance Department"
+  },
+  {
+    "description": "Lateral movement attempt detected using SMB session enumeration.",
+    "username": "svc_fileshare",
+    "source_ip": "10.0.21.14",
+    "location": "Regional Office"
+  },
+  {
+    "description": "Unauthorized attempt to disable antivirus service on endpoint.",
+    "username": "analyst02",
+    "source_ip": "10.5.8.77",
+    "location": "SOC Floor"
+  },
+  {
+    "description": "Endpoint communicating with a known command-and-control (C2) IP address.",
+    "username": "eng_sys",
+    "source_ip": "203.44.19.200",
+    "location": "Engineering Department"
+  },
+  {
+    "description": "User account created outside normal provisioning workflow.",
+    "username": "unknown",
+    "source_ip": "172.20.10.4",
+    "location": "Active Directory Server"
+  },
+  {
+    "description": "Suspicious DNS tunneling patterns detected from internal host.",
+    "username": "host09",
+    "source_ip": "10.1.3.45",
+    "location": "Riyadh Office"
+  }
+]

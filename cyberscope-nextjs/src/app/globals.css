@@ -177,6 +177,7 @@ body::before {
 
 .nav-link.active {
   color: var(--primary-accent);
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
 }
 
 .nav-link.active::after {
@@ -188,6 +189,7 @@ body::before {
   height: 3px;
   background: var(--primary-accent);
   border-radius: 3px 3px 0 0;
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
 }
 
 /* User Section */
@@ -207,10 +209,22 @@ body::before {
   border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.user-info-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .user-name {
   color: var(--text-primary);
   font-size: 0.875rem;
   font-weight: 500;
+}
+
+.user-email {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 400;
 }
 
 .user-role-badge {
@@ -1578,6 +1592,32 @@ h6 {
   color: var(--danger);
 }
 
+.analysis-badge {
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.confidence-badge {
+  background: rgba(74, 222, 128, 0.15);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: rgb(74, 222, 128);
+}
+
+.probability-badge {
+  background: rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: rgb(251, 191, 36);
+}
+
+.campaign-badges {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
 .campaign-details {
   padding-top: var(--spacing-lg);
   border-top: 1px solid var(--glass-border);
@@ -2157,6 +2197,9 @@ input:checked+.toggle-slider:before {
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   border: 1px solid rgba(0, 243, 255, 0.1);
+  position: relative;
+  overflow: visible;
+  z-index: 10;
 }
 
 .kill-chain-title {
@@ -2170,6 +2213,8 @@ input:checked+.toggle-slider:before {
 .kill-chain-container {
   position: relative;
   padding: var(--spacing-xl) 0;
+  overflow: visible;
+  z-index: 11;
 }
 
 .kill-chain-line {
@@ -2191,6 +2236,7 @@ input:checked+.toggle-slider:before {
   justify-content: space-between;
   position: relative;
   z-index: 2;
+  overflow: visible;
 }
 
 .kill-chain-stage {
@@ -2199,6 +2245,7 @@ input:checked+.toggle-slider:before {
   align-items: center;
   gap: var(--spacing-md);
   flex: 1;
+  overflow: visible;
 }
 
 .kill-chain-node {
@@ -2290,7 +2337,9 @@ input:checked+.toggle-slider:before {
   .kill-chain-label {
     font-size: 0.5rem;
   }
-}/* Time Range Filter - Aligned with Theme */
+}
+
+/* Time Range Filter - Aligned with Theme */
 .time-range-filter {
   position: relative;
   display: inline-block;
@@ -2358,6 +2407,7 @@ input:checked+.toggle-slider:before {
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

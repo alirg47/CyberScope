@@ -1,9 +1,11 @@
 'use client';
 
-import { getCurrentUser } from '@/data/mockUsers';
+import { useUser } from '@/context/UserContext';
+import { mapToProfileUser } from '@/utils/userMapping';
 
 export default function ProfilePage() {
-    const user = getCurrentUser();
+    const { currentUser } = useUser();
+    const user = mapToProfileUser(currentUser);
 
     const formatLastLogin = (timestamp: string) => {
         const date = new Date(timestamp);
@@ -42,8 +44,8 @@ export default function ProfilePage() {
                                         user.role === 'L2' ? '#f59e0b' :
                                             user.role === 'L3' ? '#3b82f6' : '#8b5cf6',
                                     border: `1px solid ${user.role === 'L1' ? '#10b981' :
-                                            user.role === 'L2' ? '#f59e0b' :
-                                                user.role === 'L3' ? '#3b82f6' : '#8b5cf6'
+                                        user.role === 'L2' ? '#f59e0b' :
+                                            user.role === 'L3' ? '#3b82f6' : '#8b5cf6'
                                         }`
                                 }}
                             >
@@ -63,7 +65,7 @@ export default function ProfilePage() {
                         </div>
                         <div className="detail-row">
                             <span className="detail-label">Last Login:</span>
-                            <span className="detail-value">{formatLastLogin(user.lastLogin)}</span>
+                            <span className="detail-value" suppressHydrationWarning>{formatLastLogin(user.lastLogin)}</span>
                         </div>
                         <div className="detail-row">
                             <span className="detail-label">User ID:</span>
@@ -148,7 +150,7 @@ export default function ProfilePage() {
                             <div className="timeline-dot"></div>
                             <div className="timeline-content">
                                 <div className="timeline-title">Login</div>
-                                <div className="timeline-time">{formatLastLogin(user.lastLogin)}</div>
+                                <div className="timeline-time" suppressHydrationWarning>{formatLastLogin(user.lastLogin)}</div>
                             </div>
                         </div>
                         <div className="timeline-item">

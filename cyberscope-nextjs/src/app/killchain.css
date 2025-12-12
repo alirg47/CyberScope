@@ -1,0 +1,380 @@
+:root {
+    /* Color System - Cyberpunk/Security Theme */
+    --primary-bg: #050505;
+    --secondary-bg: #0a0a0a;
+    --card-bg: rgba(10, 10, 10, 0.8);
+    --card-border: rgba(0, 243, 255, 0.2);
+
+    --primary-accent: #00f3ff;
+    /* Neon Cyan */
+    --secondary-accent: #bc13fe;
+    /* Neon Purple */
+    --success: #00ff9d;
+    /* Neon Green */
+    --warning: #ffb800;
+    --danger: #ff003c;
+    /* Neon Red */
+    --info: #00f3ff;
+
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --text-muted: #606060;
+
+    /* Risk Levels */
+    --risk-critical: #ff003c;
+    --risk-high: #ffb800;
+    --risk-medium: #eab308;
+    --risk-low: #00ff9d;
+    --risk-info: #00f3ff;
+
+    /* Glassmorphism */
+    --glass-bg: rgba(20, 20, 20, 0.6);
+    --glass-border: rgba(0, 243, 255, 0.1);
+    --glass-shadow: 0 0 20px rgba(0, 243, 255, 0.05);
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+
+    /* Typography */
+    --font-sans: 'Cairo', 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    /* Border Radius */
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+}
+
+/* Cyber Kill Chain Styles */
+.cyber-kill-chain {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
+    overflow: visible;
+    position: relative;
+}
+
+.kill-chain-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.kill-chain-container {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.kill-chain-line {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            rgba(0, 243, 255, 0.2) 0%,
+            rgba(0, 243, 255, 0.5) 50%,
+            rgba(0, 243, 255, 0.2) 100%);
+    transform: translateY(-50%);
+    z-index: 0;
+}
+
+.kill-chain-stages {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+
+.kill-chain-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    position: relative;
+    overflow: visible;
+}
+
+.kill-chain-node {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all var(--transition-base);
+    cursor: pointer;
+}
+
+.kill-chain-node.inactive {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.kill-chain-node.active {
+    background: rgba(0, 243, 255, 0.1);
+    border: 2px solid rgba(0, 243, 255, 0.4);
+}
+
+.kill-chain-node.current {
+    background: rgba(0, 243, 255, 0.2);
+    border: 2px solid var(--primary-accent);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.kill-chain-node.has-alerts {
+    border-color: var(--warning);
+    box-shadow: 0 0 15px rgba(255, 184, 0, 0.3);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+    }
+}
+
+.node-inner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.3) 0%, transparent 70%);
+}
+
+.kill-chain-node.active .node-inner {
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.5) 0%, transparent 70%);
+}
+
+.alert-count-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--warning);
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    min-width: 24px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(255, 184, 0, 0.4);
+    z-index: 2;
+}
+
+.kill-chain-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kill-chain-node.active+.kill-chain-label {
+    color: var(--primary-accent);
+}
+
+/* Tooltip Styles */
+.kill-chain-tooltip {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0.5rem;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    min-width: 220px;
+    max-width: 320px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 243, 255, 0.2);
+    z-index: 99999;
+    animation: tooltipFadeIn 0.2s ease-out;
+    pointer-events: none;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.tooltip-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.tooltip-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.tooltip-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.tooltip-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0.25rem 0;
+}
+
+.tooltip-severity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.severity-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.severity-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.severity-dot.critical {
+    background: #dc2626;
+    box-shadow: 0 0 8px rgba(220, 38, 38, 0.5);
+}
+
+.severity-dot.high {
+    background: #ea580c;
+    box-shadow: 0 0 8px rgba(234, 88, 12, 0.5);
+}
+
+.severity-dot.medium {
+    background: #eab308;
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.5);
+}
+
+.severity-dot.low {
+    background: #22c55e;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+.tooltip-section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(0, 243, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.tooltip-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-indicator.active {
+    background: #10b981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+.status-indicator.monitoring {
+    background: #f59e0b;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+}
+
+/* Responsive Kill Chain */
+@media (max-width: 1024px) {
+    .kill-chain-node {
+        width: 50px;
+        height: 50px;
+    }
+
+    .node-inner {
+        width: 32px;
+        height: 32px;
+    }
+
+    .kill-chain-label {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .kill-chain-stages {
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .kill-chain-stage {
+        flex: 0 0 calc(33.333% - 1rem);
+    }
+
+    .kill-chain-line {
+        display: none;
+    }
+}

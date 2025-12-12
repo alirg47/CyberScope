@@ -1,0 +1,917 @@
+[
+    {
+        "alert": {
+            "description": "Execution of a PowerShell command containing a Base64-encoded payload.",
+            "username": "itadmin",
+            "source_ip": "10.0.44.90",
+            "location": "Headquarters"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1055.003",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Multiple failed SSH login attempts detected on Linux server.",
+            "username": "server_admin",
+            "source_ip": "185.66.12.91",
+            "location": "DMZ Zone"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T1111",
+            "escalation_level": 1,
+            "cluster": 4,
+            "insight": "This alert resembles cluster pattern #4, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unusually large outbound data transfer to an unknown external IP.",
+            "username": "backup01",
+            "source_ip": "10.1.55.12",
+            "location": "Primary Datacenter"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1649",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious scheduled task created outside maintenance window.",
+            "username": "ops_team",
+            "source_ip": "172.16.2.22",
+            "location": "Headquarters"
+        },
+        "l3_prediction": {
+            "predicted_risk": 2,
+            "predicted_mitre": "T1548.005",
+            "escalation_level": 0,
+            "cluster": 2,
+            "insight": "This alert resembles cluster pattern #2, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "User executed a macro-enabled Office document from an untrusted email sender.",
+            "username": "marketing04",
+            "source_ip": "10.5.6.32",
+            "location": "Marketing Floor"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1555.006",
+            "escalation_level": 2,
+            "cluster": 5,
+            "insight": "This alert resembles cluster pattern #5, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Potential ransomware behavior detected: mass encryption of files.",
+            "username": "design_pc",
+            "source_ip": "10.11.23.19",
+            "location": "Design Studio"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T0855",
+            "escalation_level": 2,
+            "cluster": 5,
+            "insight": "This alert resembles cluster pattern #5, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Brute-force attempt detected against internal SQL database.",
+            "username": "dbadmin",
+            "source_ip": "10.8.4.88",
+            "location": "Database Cluster"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1636.001",
+            "escalation_level": 2,
+            "cluster": 3,
+            "insight": "This alert resembles cluster pattern #3, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Outbound connection to Tor exit node detected.",
+            "username": "guest_user",
+            "source_ip": "172.20.5.66",
+            "location": "Guest Network"
+        },
+        "l3_prediction": {
+            "predicted_risk": 7,
+            "predicted_mitre": "T1016.001",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious PowerShell module imported in user session.",
+            "username": "analyst03",
+            "source_ip": "10.4.9.22",
+            "location": "SOC Floor"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1547.006",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "User attempted to disable antivirus service via command line.",
+            "username": "temp_worker",
+            "source_ip": "10.9.8.55",
+            "location": "Temporary Workspace"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T1550",
+            "escalation_level": 1,
+            "cluster": 0,
+            "insight": "This alert resembles cluster pattern #0, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unusual authentication from geolocation not previously associated with the user.",
+            "username": "remote01",
+            "source_ip": "102.221.12.77",
+            "location": "VPN Gateway"
+        },
+        "l3_prediction": {
+            "predicted_risk": 7,
+            "predicted_mitre": "T1621",
+            "escalation_level": 2,
+            "cluster": 3,
+            "insight": "This alert resembles cluster pattern #3, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "User downloaded executable file from untrusted URL.",
+            "username": "consultant01",
+            "source_ip": "172.16.33.10",
+            "location": "Remote Access"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1548.004",
+            "escalation_level": 2,
+            "cluster": 5,
+            "insight": "This alert resembles cluster pattern #5, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Cleartext credentials detected in network traffic.",
+            "username": "devops",
+            "source_ip": "10.10.44.2",
+            "location": "Cloud Operations"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1574.011",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unapproved remote desktop access attempt detected.",
+            "username": "finance01",
+            "source_ip": "192.168.5.25",
+            "location": "Finance Department"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T0855",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious registry modification detected.",
+            "username": "hr_pc",
+            "source_ip": "10.4.2.19",
+            "location": "HR Department"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T1574.011",
+            "escalation_level": 1,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "External IP attempting multiple connections to internal SSH service.",
+            "username": "unknown",
+            "source_ip": "185.199.22.71",
+            "location": "Firewall Perimeter"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1567",
+            "escalation_level": 2,
+            "cluster": 4,
+            "insight": "This alert resembles cluster pattern #4, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "User attempted execution of unsigned binaries.",
+            "username": "qa_user",
+            "source_ip": "10.7.13.4",
+            "location": "QA Lab"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1546.013",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Email attachment flagged as potential malware.",
+            "username": "legal01",
+            "source_ip": "10.15.4.99",
+            "location": "Legal Department"
+        },
+        "l3_prediction": {
+            "predicted_risk": 3,
+            "predicted_mitre": "T1212",
+            "escalation_level": 0,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "User added to privileged AD group outside change window.",
+            "username": "ad_admin",
+            "source_ip": "172.16.99.4",
+            "location": "Active Directory Server"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1548.002",
+            "escalation_level": 2,
+            "cluster": 2,
+            "insight": "This alert resembles cluster pattern #2, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious WMI command execution detected.",
+            "username": "syseng",
+            "source_ip": "10.0.8.14",
+            "location": "Engineering Floor"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T1202",
+            "escalation_level": 1,
+            "cluster": 0,
+            "insight": "This alert resembles cluster pattern #0, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Outbound connection to high-risk IP with past C2 activity.",
+            "username": "eng_sys",
+            "source_ip": "203.44.19.200",
+            "location": "Engineering Department"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1016.001",
+            "escalation_level": 2,
+            "cluster": 4,
+            "insight": "This alert resembles cluster pattern #4, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unauthorized modification of system files detected.",
+            "username": "support01",
+            "source_ip": "10.3.3.12",
+            "location": "IT Support"
+        },
+        "l3_prediction": {
+            "predicted_risk": 3,
+            "predicted_mitre": "T0855",
+            "escalation_level": 0,
+            "cluster": 5,
+            "insight": "This alert resembles cluster pattern #5, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Endpoint attempted to bypass URL filtering policies.",
+            "username": "guest02",
+            "source_ip": "172.20.14.31",
+            "location": "Guest Network"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1499",
+            "escalation_level": 2,
+            "cluster": 0,
+            "insight": "This alert resembles cluster pattern #0, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unexpected LDAP enumeration from internal host.",
+            "username": "unknown",
+            "source_ip": "10.0.2.90",
+            "location": "Directory Services"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T1664",
+            "escalation_level": 1,
+            "cluster": 3,
+            "insight": "This alert resembles cluster pattern #3, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious Python script executed from user profile folder.",
+            "username": "dev01",
+            "source_ip": "10.8.99.11",
+            "location": "Developer Floor"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1216",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious PowerShell process spawning child processes.",
+            "username": "ops02",
+            "source_ip": "10.1.4.33",
+            "location": "Operations Center"
+        },
+        "l3_prediction": {
+            "predicted_risk": 3,
+            "predicted_mitre": "T1546.013",
+            "escalation_level": 0,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Failed login attempts followed by successful login from same IP.",
+            "username": "hr_admin",
+            "source_ip": "185.77.14.81",
+            "location": "HR Workstation"
+        },
+        "l3_prediction": {
+            "predicted_risk": 2,
+            "predicted_mitre": "T1574.007",
+            "escalation_level": 0,
+            "cluster": 4,
+            "insight": "This alert resembles cluster pattern #4, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "User attempted installation of unsigned driver.",
+            "username": "tech01",
+            "source_ip": "10.0.55.14",
+            "location": "Technical Support"
+        },
+        "l3_prediction": {
+            "predicted_risk": 3,
+            "predicted_mitre": "T1505.006",
+            "escalation_level": 0,
+            "cluster": 3,
+            "insight": "This alert resembles cluster pattern #3, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Brute-force RDP attempts detected.",
+            "username": "remote_access",
+            "source_ip": "102.88.21.4",
+            "location": "VPN Gateway"
+        },
+        "l3_prediction": {
+            "predicted_risk": 7,
+            "predicted_mitre": "T0806",
+            "escalation_level": 2,
+            "cluster": 4,
+            "insight": "This alert resembles cluster pattern #4, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious workstation communicating with known C2 IP.",
+            "username": "eng02",
+            "source_ip": "203.44.11.144",
+            "location": "Engineering Department"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1102.002",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Multiple blocked outbound connections to phishing URLs.",
+            "username": "finance04",
+            "source_ip": "192.168.6.41",
+            "location": "Finance Department"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T1070.007",
+            "escalation_level": 1,
+            "cluster": 4,
+            "insight": "This alert resembles cluster pattern #4, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unauthorized creation of local administrator account.",
+            "username": "unknown",
+            "source_ip": "10.1.90.2",
+            "location": "Corporate HQ"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T0855",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious Kerberos authentication failures detected.",
+            "username": "ad_svc",
+            "source_ip": "172.16.100.22",
+            "location": "Domain Controller"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1111",
+            "escalation_level": 2,
+            "cluster": 3,
+            "insight": "This alert resembles cluster pattern #3, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Endpoint attempted execution of obfuscated JavaScript.",
+            "username": "web_team",
+            "source_ip": "10.18.44.61",
+            "location": "Web Development Wing"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T0855",
+            "escalation_level": 2,
+            "cluster": 0,
+            "insight": "This alert resembles cluster pattern #0, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "High-risk file downloaded from cloud storage provider.",
+            "username": "remote_dev",
+            "source_ip": "102.244.77.14",
+            "location": "Remote Access"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1530",
+            "escalation_level": 2,
+            "cluster": 5,
+            "insight": "This alert resembles cluster pattern #5, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Detected signs of data exfiltration via HTTPS.",
+            "username": "audit_team",
+            "source_ip": "10.11.8.20",
+            "location": "Audit Department"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1020",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious remote command execution via PSExec across multiple servers.",
+            "username": "automation_svc",
+            "source_ip": "10.0.14.21",
+            "location": "Server Farm"
+        },
+        "l3_prediction": {
+            "predicted_risk": 7,
+            "predicted_mitre": "T1202",
+            "escalation_level": 2,
+            "cluster": 4,
+            "insight": "This alert resembles cluster pattern #4, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Critical server launched unknown executable from TEMP directory with persistence behavior.",
+            "username": "dbserver02",
+            "source_ip": "10.3.99.44",
+            "location": "Database Center"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1059.001",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unauthorized remote code execution attempt detected through PowerShell remoting.",
+            "username": "server_ops",
+            "source_ip": "10.0.50.12",
+            "location": "Core Datacenter"
+        },
+        "l3_prediction": {
+            "predicted_risk": 3,
+            "predicted_mitre": "T1055.003",
+            "escalation_level": 0,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Detected attempt to dump LSASS memory for credential harvesting.",
+            "username": "unknown",
+            "source_ip": "10.8.41.77",
+            "location": "Active Directory Server"
+        },
+        "l3_prediction": {
+            "predicted_risk": 7,
+            "predicted_mitre": "T1212",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Endpoint communicating with known command-and-control server.",
+            "username": "eng_sys",
+            "source_ip": "203.55.18.44",
+            "location": "Engineering Department"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1202",
+            "escalation_level": 2,
+            "cluster": 0,
+            "insight": "This alert resembles cluster pattern #0, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unauthorized modification of Windows firewall rules detected.",
+            "username": "netadmin",
+            "source_ip": "10.2.14.3",
+            "location": "Network Operations Center"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T0855",
+            "escalation_level": 1,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Privilege escalation attempt detected using UAC bypass technique.",
+            "username": "temp_user",
+            "source_ip": "172.20.1.90",
+            "location": "HQ Office"
+        },
+        "l3_prediction": {
+            "predicted_risk": 2,
+            "predicted_mitre": "T1068",
+            "escalation_level": 0,
+            "cluster": 3,
+            "insight": "This alert resembles cluster pattern #3, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Malware attempted to disable EDR protection on endpoint.",
+            "username": "host22",
+            "source_ip": "10.7.21.90",
+            "location": "HQ Workstation"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1655.001",
+            "escalation_level": 2,
+            "cluster": 0,
+            "insight": "This alert resembles cluster pattern #0, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious persistence created via scheduled task pointing to unknown binary.",
+            "username": "ops01",
+            "source_ip": "10.0.14.19",
+            "location": "Headquarters"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1550.001",
+            "escalation_level": 2,
+            "cluster": 2,
+            "insight": "This alert resembles cluster pattern #2, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Detected code injection attempt into critical system process.",
+            "username": "sys_admin",
+            "source_ip": "10.0.77.25",
+            "location": "Infrastructure Node"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1543.003",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Critical server executed unknown binary from TEMP directory.",
+            "username": "dbserver02",
+            "source_ip": "10.3.99.44",
+            "location": "Database Center"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1059.001",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Internal host running Cobalt Strike beacon activity.",
+            "username": "tech_support",
+            "source_ip": "10.0.5.88",
+            "location": "IT Support Floor"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T1649",
+            "escalation_level": 1,
+            "cluster": 3,
+            "insight": "This alert resembles cluster pattern #3, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Detected brute-force attack targeting privileged account.",
+            "username": "root_admin",
+            "source_ip": "185.22.91.33",
+            "location": "Perimeter Firewall"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1068",
+            "escalation_level": 2,
+            "cluster": 4,
+            "insight": "This alert resembles cluster pattern #4, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unauthorized PowerShell one-liner executed with admin privileges.",
+            "username": "ops_script",
+            "source_ip": "172.16.22.15",
+            "location": "HQ Operations"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T0855",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "System audit logs tampered or deleted by unknown process.",
+            "username": "sec_admin",
+            "source_ip": "172.16.22.5",
+            "location": "Security Operations"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1548.005",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Detected credential dumping attempt using Mimikatz.",
+            "username": "unknown",
+            "source_ip": "10.0.2.44",
+            "location": "Windows Server Cluster"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1003",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Suspicious SMB lateral movement attempt identified.",
+            "username": "svc_fileshare",
+            "source_ip": "10.0.21.90",
+            "location": "Regional Office"
+        },
+        "l3_prediction": {
+            "predicted_risk": 3,
+            "predicted_mitre": "T1047",
+            "escalation_level": 0,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Detected use of pass-the-hash technique for authentication.",
+            "username": "svc_account",
+            "source_ip": "10.4.88.14",
+            "location": "Server Farm"
+        },
+        "l3_prediction": {
+            "predicted_risk": 7,
+            "predicted_mitre": "T1550.002",
+            "escalation_level": 2,
+            "cluster": 3,
+            "insight": "This alert resembles cluster pattern #3, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "High-risk file downloaded from untrusted cloud storage.",
+            "username": "remote_dev",
+            "source_ip": "102.244.77.14",
+            "location": "Remote Access"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1530",
+            "escalation_level": 2,
+            "cluster": 5,
+            "insight": "This alert resembles cluster pattern #5, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Anomalous outbound traffic to newly registered malicious domain.",
+            "username": "sales01",
+            "source_ip": "192.168.44.9",
+            "location": "Sales Department"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T0855",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Unauthorized access attempt to encrypted key vault.",
+            "username": "crypto_admin",
+            "source_ip": "10.9.99.14",
+            "location": "Key Management Center"
+        },
+        "l3_prediction": {
+            "predicted_risk": 2,
+            "predicted_mitre": "T0855",
+            "escalation_level": 0,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Detected port scanning across internal subnet from compromised host.",
+            "username": "host_scanner",
+            "source_ip": "10.3.9.90",
+            "location": "Regional Office"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T1634",
+            "escalation_level": 1,
+            "cluster": 3,
+            "insight": "This alert resembles cluster pattern #3, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Detected injection into lsass.exe indicating credential theft attempt.",
+            "username": "endpoint03",
+            "source_ip": "10.1.55.17",
+            "location": "Corporate HQ"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1098.001",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "WMI-based remote execution attempt detected.",
+            "username": "syseng",
+            "source_ip": "10.0.8.14",
+            "location": "Engineering Floor"
+        },
+        "l3_prediction": {
+            "predicted_risk": 8,
+            "predicted_mitre": "T1202",
+            "escalation_level": 2,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    },
+    {
+        "alert": {
+            "description": "Outgoing communication with botnet infrastructure detected.",
+            "username": "host11",
+            "source_ip": "10.0.9.19",
+            "location": "Riyadh Office"
+        },
+        "l3_prediction": {
+            "predicted_risk": 5,
+            "predicted_mitre": "T1578.001",
+            "escalation_level": 1,
+            "cluster": 1,
+            "insight": "This alert resembles cluster pattern #1, which often matches similar historical attack behaviors."
+        }
+    }
+]

@@ -5,6 +5,9 @@ import { useState } from 'react';
 import ActionModal from './ActionModal';
 import ThreatGraph from './ThreatGraph';
 import KillChainView from './KillChainView';
+import MitreAttackCard from './ThreatIntel/MitreAttackCard';
+import VirusTotalCard from './ThreatIntel/VirusTotalCard';
+import AISummaryDisplay from './AISummaryDisplay';
 
 interface IncidentDetailsPanelProps {
     incident: Incident;
@@ -88,23 +91,37 @@ const IncidentDetailsPanel = ({ incident, onClose, onAction }: IncidentDetailsPa
                         <div className="overview-tab">
                             <div className="incident-summary-section">
                                 <h3>Summary</h3>
-                                <p>{incident.summary}</p>
                             </div>
 
                             {incident.l2_notes && (
                                 <div className="notes-section">
-                                    <h3>L2 Notes</h3>
+                                    <h4>L1 Notes</h4>
                                     <p>{incident.l2_notes}</p>
                                 </div>
                             )}
 
+                            {/* AI Threat Analysis */}
+                            {incident.ai_summary && (
+                                <AISummaryDisplay summary={incident.ai_summary} />
+                            )}
+
+                            {/* MITRE ATT&CK Intelligence */}
+                            {incident.mitre_attack && (
+                                <MitreAttackCard mitre={incident.mitre_attack} />
+                            )}
+
+                            {/* VirusTotal Intelligence */}
+                            {incident.virustotal_data && (
+                                <VirusTotalCard vt={incident.virustotal_data} />
+                            )}
+
                             <div className="graph-section">
-                                <h3>Attack Graph</h3>
+                                <br></br>
                                 <ThreatGraph graph={incident.graph} />
                             </div>
 
                             <div className="killchain-section">
-                                <h3>Cyber Kill Chain</h3>
+
                                 <KillChainView killChain={incident.kill_chain} />
                             </div>
                         </div>
